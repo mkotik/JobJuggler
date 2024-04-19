@@ -6,7 +6,8 @@
   "scripts": {
     "start": "ts-node dist/index.js",
     "build": "tsc",
-    "dev": "ts-node-dev --respawn --transpile-only src/index.ts"
+    "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
+    "migrate": "read -p 'Enter migration name: ' migrationName && npx prisma migrate dev --name $migrationName"
   },
   "keywords": [],
   "author": "",
