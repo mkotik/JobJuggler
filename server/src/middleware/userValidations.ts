@@ -19,3 +19,18 @@ export const emailExists: RequestHandler = async (
     res.status(401).json({ message: "email not found" });
   }
 };
+
+export const isSessionValid = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  //@ts-ignore
+  if (req.session && req.session.authenticated) {
+    console.log("session authenticated");
+    next();
+  } else {
+    console.log("session invalid");
+    res.status(403).json({ message: "session invalid" });
+  }
+};

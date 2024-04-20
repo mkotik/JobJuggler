@@ -33,6 +33,8 @@ export const login = async (req: Request, res: Response) => {
 
   const isPasswordValid = await bcrypt.compare(password, storedPassword);
   if (isPasswordValid) {
+    //@ts-ignore
+    req.session.authenticated = true;
     console.log("user authenticated");
     res.status(200).json({ message: "login successful" });
   } else {
