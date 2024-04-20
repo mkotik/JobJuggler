@@ -36,17 +36,18 @@ export const login = async (req: Request, res: Response) => {
   if (isPasswordValid) {
     //@ts-ignore
     req.session.authenticated = true;
-    console.log(req.session);
-    console.log("user authenticated");
     res.status(200).json({ message: "login successful" });
   } else {
-    console.log("invalid password");
     res.status(401).json({ message: "invalid password" });
   }
 };
 
 export const isSessionValid = async (req: Request, res: Response) => {
   const { sessionId } = req.cookies;
+  if (!sessionId) {
+    res.status(403).json({ status: "invalid" });
+    return;
+  }
   const sessionIdKey = sessionId.split(".")[0].substring(2);
 
   try {

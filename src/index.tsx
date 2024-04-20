@@ -3,9 +3,6 @@ import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Login from "./containers/Login/Login";
 import Home from "./containers/Home/Home";
-import { isSessionValid } from "./services/userServices";
-
-console.log(await isSessionValid());
 
 const router = createBrowserRouter([
   {

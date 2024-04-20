@@ -25,7 +25,7 @@ export const isSessionValid = async () => {
         withCredentials: true, // Add credentials option
       }
     );
-    console.log(response);
+    return response.data.status === "valid";
   } catch (err) {
     console.log(err);
   }
