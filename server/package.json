@@ -7,7 +7,9 @@
     "start": "ts-node dist/index.js",
     "build": "tsc",
     "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
-    "migrate": "read -p 'Enter migration name: ' migrationName && npx prisma migrate dev --name $migrationName"
+    "migrate": "read -p 'Enter migration name: ' migrationName && npx prisma migrate dev --name $migrationName",
+    "migrate_2": "npx prisma migrate dev",
+    "rollback": "npx prisma migrate reset"
   },
   "keywords": [],
   "author": "",

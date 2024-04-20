@@ -1,22 +1,20 @@
 import { Request, Response } from "express";
-import { PrismaClient } from "@prisma/client";
+import { xDaysFromNow } from "../utils/dateUtils";
+import config from "../config/config";
+import prisma from "../prisma/config";
 
-const prisma = new PrismaClient();
 export const createUser = async (
   req: Request,
   res: Response
 ): Promise<void> => {
-  const { name, email } = req.body;
-
   try {
-    const newUser = await prisma.users.create({
+    const newUserId = await prisma.users.create({
       data: {
-        name,
-        email,
+        ...req.body,
+        free_trial_expiration_date: xDaysFromNow(config.subscriptionLength),
       },
     });
-
-    res.status(201).json(newUser);
+    res.status(201).json(newUserId);
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Internal Server Error" });

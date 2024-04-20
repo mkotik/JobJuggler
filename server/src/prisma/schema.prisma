@@ -1,0 +1,237 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+
+model Taxes {
+  id          Int       @id @default(autoincrement())
+  name        String
+  rate        Float
+  description String?
+  users       Users[]      // This is the opposite relation field
+  quotes      Quotes[]  
+}
+
+model Addresses {
+  id        Int    @id @default(autoincrement())
+  street1   String
+  street2   String?
+  city      String
+  state     String
+  zip_code  String
+  country   String
+  users     Users[]
+  property_clients  Clients[] @relation("property_address")
+  billing_clients   Clients[] @relation("billing_address")
+}
+
+
+model Users {
+  id                         Int          @id @default(autoincrement())
+  email                      String?       @unique
+  password                   String
+  first_name                 String
+  last_name                  String
+  phone_number               String?       @unique
+  company_name               String?   // Optional field
+  subscription_id            String?
+  free_trial_expiration_date DateTime?
+  default_tax                Taxes?        @relation(fields: [default_tax_id], references: [id])
+  default_tax_id             Int?
+  address                    Addresses?    @relation(fields: [address_id], references: [id])
+  address_id                 Int?    
+  settings                   Json?      // JSONB column
+}
+
+model Clients {
+  id                          Int       @id @default(autoincrement())
+  title                       String
+  tags                        Json?     // JSONB column
+  first_name                  String
+  last_name                   String
+  company_name                String?   // Optional field
+  use_company_name_as_primary Boolean   @default(false)
+  mobile_phone_number         String?   // Optional field
+  work_phone_number           String?   // Optional field
+  email                       String?   // Optional field
+  quote_follow_up             Boolean   @default(true)
+  job_follow_up               Boolean   @default(true)
+  invoice_follow_up           Boolean   @default(true)
+  upcoming_visit_reminder     Boolean   @default(true)
+  referred_by                String?   // Optional field
+  billing_address_same_as_property Boolean @default(true)
+  property_address           Addresses? @relation(name: "property_address", fields: [property_address_id], references: [id])
+  billing_address            Addresses? @relation(name: "billing_address", fields: [billing_address_id], references: [id])
+  property_address_id        Int?
+  billing_address_id         Int?
+  requests                   Requests[] @relation("client")
+  quotes                     Quotes[] @relation("client")
+  jobs                       Jobs[] @relation("client")
+
+}
+
+model Assessments {
+  id             Int      @id @default(autoincrement())
+  instructions   String?
+  start_date      DateTime?
+  end_date        DateTime?
+  schedule_later  Boolean  @default(false)
+  start_time      DateTime?
+  end_time        DateTime?
+  any_time        Boolean  @default(false)
+  team           String?
+  requests       Requests[] @relation("assessment")
+}
+
+model Requests {
+  id                        Int       @id @default(autoincrement())
+  status                    String
+  tags                      Json?     // JSON column
+  emailed_to_client           Boolean   @default(false)
+  texted_to_client            Boolean   @default(false)
+  title                     String
+  service_details            String
+  assessment_date            DateTime
+  backup_assessment__date      DateTime? // Optional field
+  preferred_arrival_times     String?   // One of “Any time”, “Morning”, “Afternoon”, “Evening”
+  on_site_assesment_required   Boolean   @default(false)
+  assessment                Assessments  @relation(name: "assessment", fields: [assessment_id], references: [id])
+  client                    Clients   @relation(name: "client", fields: [client_id], references: [id])
+  client_id                 Int
+  assessment_id             Int
+  internal_notes            String
+  internalAttachmentUrl     String
+  link_to_releated_quotes   Boolean @default(true)
+  link_to_releated_jobs   Boolean @default(true)
+  link_to_releated_invoices   Boolean @default(true)
+  quotes                     QuoteRequest[]
+  job_requests              JobRequest[]
+}
+
+model LineItems {
+  id            Int      @id @default(autoincrement())
+  type          String
+  name          String
+  description   String?
+  quantity      Int      @default(1)
+  unit_price    Float
+  markup        Float?
+  img_url       String?
+  recommend_item Boolean  @default(false)
+  quotes        LineItemQuote[]
+  jobs          LineItemJob[]
+}
+
+model Quotes {
+  id                  Int        @id @default(autoincrement())
+  tags                Json?      // JSON column
+  emailed_to_client   Boolean    @default(false)
+  texted_to_client    Boolean    @default(false)
+  status              String     // Enum for status
+  title               String
+  quote_number        String
+  opportunity_rating  String?
+  client              Clients    @relation(name: "client", fields: [client_id], references: [id])
+  client_id           Int
+  line_items          LineItemQuote[]
+  client_message      String?
+  discount            Float?
+  discount_unit       String?
+  tax                 Taxes? @relation(fields: [tax_id], references: [id])
+  tax_id              Int
+  required_deposit    Float?
+  link_to_releated_jobs      Boolean @default(true)
+  link_to_releated_invoices  Boolean @default(true)
+  requests                  QuoteRequest[]
+  job_quotes                JobQuote[]
+}
+
+model LineItemQuote {
+  id           Int      @id @default(autoincrement())
+  quote        Quotes   @relation(fields: [quote_id], references: [id])
+  quote_id     Int
+  line_item    LineItems @relation(fields: [line_item_id], references: [id])
+  line_item_id Int
+
+  @@unique([quote_id, line_item_id])
+}
+
+
+model QuoteRequest {
+  id         Int    @id @default(autoincrement())
+  quote      Quotes @relation(fields: [quoteId], references: [id])
+  quoteId    Int
+  request    Requests @relation(fields: [requestId], references: [id])
+  requestId  Int
+
+  @@unique([quoteId, requestId])
+}
+
+model Jobs {
+  id                        Int        @id @default(autoincrement())
+  tags                      Json?      // JSON column
+  emailed_to_client         Boolean    @default(false)
+  texted_to_client          Boolean    @default(false)
+  status                    String
+  client                    Clients    @relation(name: "client", fields: [client_id], references: [id])
+  client_id                 Int
+  title                     String
+  instructions              String?
+  number                    String
+  schedule_type             String
+  recurring_frequency       String?
+  recurring_interval        String?
+  day_of_week               String?
+  day_of_year               String?
+  duration                  String?
+  start_date                DateTime?
+  end_date                  DateTime?
+  start_time                DateTime?
+  end_time                  DateTime?
+  schedule_later            Boolean    @default(false)
+  team                      String?
+  email_team                Boolean    @default(true)
+  invoice_reminder          Boolean    @default(true)
+  line_items                LineItemJob[]
+  internal_notes            String?
+  internal_attachment_url   String?
+  link_to_related_invoices  Boolean    @default(true)
+  job_requests              JobRequest[]
+  job_quotes                JobQuote[]
+}
+
+model LineItemJob {
+  id           Int      @id @default(autoincrement())
+  job          Jobs     @relation(fields: [job_id], references: [id])
+  job_id       Int
+  line_item    LineItems @relation(fields: [line_item_id], references: [id])
+  line_item_id Int
+
+  @@unique([job_id, line_item_id])
+}
+
+model JobRequest {
+  id           Int      @id @default(autoincrement())
+  job          Jobs     @relation(fields: [job_id], references: [id])
+  job_id       Int
+  request      Requests @relation(fields: [request_id], references: [id])
+  request_id   Int
+
+  @@unique([job_id, request_id])
+}
+
+model JobQuote {
+  id           Int      @id @default(autoincrement())
+  job          Jobs     @relation(fields: [job_id], references: [id])
+  job_id       Int
+  quote        Quotes   @relation(fields: [quote_id], references: [id])
+  quote_id     Int
+
+  @@unique([job_id, quote_id])
+}
+
