@@ -1,0 +1,16 @@
+.login-form {
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  margin: auto;
+  margin-top: 50px;
+
+  .submit-btn,
+  .input {
+    height: 50px;
+    input {
+      font: -webkit-control;
+    }
+    margin-top: 10px;
+  }
+}
