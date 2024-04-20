@@ -16,3 +16,17 @@ export const login = async (loginData: { email: string; password: string }) => {
     console.log(err);
   }
 };
+
+export const isSessionValid = async () => {
+  try {
+    const response = await axios.get(
+      `${config.loginUrl}/api/users/is-session-valid`,
+      {
+        withCredentials: true, // Add credentials option
+      }
+    );
+    console.log(response);
+  } catch (err) {
+    console.log(err);
+  }
+};

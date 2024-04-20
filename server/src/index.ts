@@ -3,13 +3,15 @@ const session = require("express-session");
 import userRoutes from "./routes/userRoutes";
 import dotenv from "dotenv";
 const cors = require("cors");
+import cookieParser from "cookie-parser";
 import config from "./config/config";
 
-const store = new session.MemoryStore();
+export const store = new session.MemoryStore();
 
 dotenv.config();
 
 const app = express();
+app.use(cookieParser());
 app.use(
   session({
     name: "sessionId",

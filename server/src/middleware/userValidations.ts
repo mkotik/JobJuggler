@@ -20,7 +20,7 @@ export const emailExists: RequestHandler = async (
   }
 };
 
-export const isSessionValid = (
+export const validateSession = (
   req: Request,
   res: Response,
   next: NextFunction
@@ -31,6 +31,7 @@ export const isSessionValid = (
     next();
   } else {
     console.log("session invalid");
-    res.status(403).json({ message: "session invalid" });
+    // res.status(403).json({ message: "session invalid" });
+    next();
   }
 };
