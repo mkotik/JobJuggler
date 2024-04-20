@@ -1,11 +1,11 @@
 import { Box } from "@mui/material";
 
-const Home = () => {
+const Clients = () => {
   return (
     <Box>
-      <p>Home</p>
+      <p>Clients</p>
     </Box>
   );
 };
 
-export default Home;
+export default Clients;

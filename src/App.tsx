@@ -1,12 +1,15 @@
-import React from "react";
-import Login from "./containers/Login/Login";
-
-function App() {
+import { Box } from "@mui/material";
+import { useCheckSession } from "./utils/customHooks";
+import { ReactNode } from "react";
+import Navbar from "./components/NavBar";
+const App = ({ children }: { children: ReactNode }) => {
+  useCheckSession();
   return (
-    <div>
-      <p>hi</p>
-    </div>
+    <Box display="flex">
+      <Navbar />
+      {children}
+    </Box>
   );
-}
+};
 
 export default App;
