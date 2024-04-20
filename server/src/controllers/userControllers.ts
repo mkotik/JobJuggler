@@ -1,7 +1,9 @@
 import { Request, Response } from "express";
+const bcrypt = require("bcryptjs");
 import { xDaysFromNow } from "../utils/dateUtils";
 import config from "../config/config";
 import prisma from "../prisma/config";
+import { getUserByEmail } from "../models/userModel";
 
 export const createUser = async (
   req: Request,
@@ -22,6 +24,19 @@ export const createUser = async (
 };
 
 export const login = async (req: Request, res: Response) => {
-  console.log(req.body);
-  res.status(200).json({ message: "success" });
+  const { password } = req.body;
+
+  const storedPassword = res.locals.user.password;
+
+  // const salt = await bcrypt.genSalt(10);
+  // const hashedPassword = await bcrypt.hash(password, salt);
+
+  const isPasswordValid = await bcrypt.compare(password, storedPassword);
+  if (isPasswordValid) {
+    console.log("user authenticated");
+    res.status(200).json({ message: "login successful" });
+  } else {
+    console.log("invalid password");
+    res.status(401).json({ message: "invalid password" });
+  }
 };

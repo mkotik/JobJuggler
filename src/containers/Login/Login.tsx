@@ -9,14 +9,11 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const onHandleSubmit = async () => {
-    console.log(email);
-    console.log(password);
     await login({ email, password });
   };
   return (
     <Box className="login-form">
       <TextField
-        id="outlined-basic"
         label="Email"
         variant="outlined"
         className="input"
@@ -25,7 +22,6 @@ const Login = () => {
       />
       <TextField
         className="input"
-        id="outlined-basic"
         label="Password"
         variant="outlined"
         type="password"
