@@ -15,6 +15,7 @@ model Taxes {
   description String?
   users       Users[]      // This is the opposite relation field
   quotes      Quotes[]  
+  invoices    Invoices[] @relation("taxes")
 }
 
 model Addresses {
@@ -47,6 +48,10 @@ model Users {
   address_id                 Int?    
   settings                   Json?      // JSONB column
   clients                    Clients[] @relation("client_belongs_to_user")
+  requests                    Requests[] @relation("request_belongs_to_user")
+  jobs                        Jobs[] @relation("job_belongs_to_user")
+  quotes                      Quotes[] @relation("quote_belongs_to_user")
+  invoices                    Invoices[] @relation("invoice_belongs_to_user")
 }
 
 model Clients {
@@ -73,6 +78,7 @@ model Clients {
   requests                   Requests[] @relation("client")
   quotes                     Quotes[] @relation("client")
   jobs                       Jobs[] @relation("client")
+  invoices                   Invoices[] @relation("client")
   created_date                DateTime  @default(now())
   status                      String?   // Optional field
   belongs_to                  Users @relation(name: "client_belongs_to_user", fields: [belongs_to_id], references: [id])
@@ -115,6 +121,8 @@ model Requests {
   link_to_releated_invoices   Boolean @default(true)
   quotes                     QuoteRequest[]
   job_requests              JobRequest[]
+  belongs_to                  Users @relation(name: "request_belongs_to_user", fields: [belongs_to_id], references: [id])
+  belongs_to_id               Int
 }
 
 model LineItems {
@@ -128,6 +136,7 @@ model LineItems {
   img_url       String?
   recommend_item Boolean  @default(false)
   quotes        LineItemQuote[]
+  invoices      LineItemInvoice[]
   jobs          LineItemJob[]
 }
 
@@ -153,6 +162,8 @@ model Quotes {
   link_to_releated_invoices  Boolean @default(true)
   requests                  QuoteRequest[]
   job_quotes                JobQuote[]
+  belongs_to                  Users @relation(name: "quote_belongs_to_user", fields: [belongs_to_id], references: [id])
+  belongs_to_id               Int
 }
 
 model LineItemQuote {
@@ -207,6 +218,9 @@ model Jobs {
   link_to_related_invoices  Boolean    @default(true)
   job_requests              JobRequest[]
   job_quotes                JobQuote[]
+  invoices                  Invoices[] @relation("jobs")
+  belongs_to                  Users @relation(name: "job_belongs_to_user", fields: [belongs_to_id], references: [id])
+  belongs_to_id               Int
 }
 
 model LineItemJob {
@@ -239,3 +253,37 @@ model JobQuote {
   @@unique([job_id, quote_id])
 }
 
+model Invoices {
+  id                      Int         @id @default(autoincrement())
+  tags                    Json?       // JSON column
+  emailed_to_client       Boolean     @default(false)
+  texted_to_client        Boolean     @default(false)
+  issued_date             DateTime
+  due_date                DateTime?   // Optional field
+  status                  String
+  type                    String
+  subject                 String
+  client                  Clients     @relation(name: "client", fields: [client_id], references: [id])
+  client_id                Int
+  job                     Jobs?      @relation(name: "jobs", fields: [job_id], references: [id])
+  job_id                   Int?
+  tax                     Taxes?      @relation(name: "taxes", fields: [tax_id], references: [id])
+  tax_id                   Int?
+  additional_line_items   LineItemInvoice[]
+  client_message          String
+  internal_notes          String
+  internalAttachmentUrl   String
+  belongs_to                  Users @relation(name: "invoice_belongs_to_user", fields: [belongs_to_id], references: [id])
+  belongs_to_id               Int
+}
+
+
+model LineItemInvoice {
+  id           Int         @id @default(autoincrement())
+  invoice      Invoices    @relation(fields: [invoice_id], references: [id])
+  invoice_id    Int
+  line_item    LineItems   @relation(fields: [line_item_id], references: [id])
+  line_item_id   Int
+
+  @@unique([invoice_id, line_item_id])
+}

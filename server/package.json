@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "ts-node dist/index.js",
+    "start-dev": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' src/index.ts",
     "build": "tsc",
     "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
     "migrate": "read -p 'Enter migration name: ' migrationName && npx prisma migrate dev --name $migrationName",
@@ -31,6 +32,7 @@
     "@types/node": "^20.12.7",
     "@types/pg": "^8.11.5",
     "dotenv": "^16.4.5",
+    "nodemon": "^3.1.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.4.5"
   }

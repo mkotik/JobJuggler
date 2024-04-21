@@ -12,38 +12,22 @@ import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
+import { ClientType, AddressType } from "./clientsTypes";
 
-function createData(
-  name: string,
-  calories: number,
-  fat: number,
-  carbs: number,
-  protein: number,
-  price: number
-) {
-  return {
-    name,
-    calories,
-    fat,
-    carbs,
-    protein,
-    price,
-    history: [
-      {
-        date: "2020-01-05",
-        customerId: "11091700",
-        amount: 3,
-      },
-      {
-        date: "2020-01-02",
-        customerId: "Anonymous",
-        amount: 1,
-      },
-    ],
-  };
-}
+const getClientName = (row: any) => {
+  const { first_name, last_name } = row;
+  const fullName = `${first_name} ${last_name}`;
+  return fullName;
+};
 
-function Row(props: { row: ReturnType<typeof createData> }) {
+const generateAddressString = (address: AddressType | undefined) => {
+  if (!address) return;
+  const { city, country, state, street1, street2, zip_code } = address;
+  const outputStr = street1 + ", " + city + ", " + state + "" + zip_code;
+  return outputStr;
+};
+
+function Row(props: { row: ClientType }) {
   const { row } = props;
   const [open, setOpen] = React.useState(false);
 
@@ -59,13 +43,16 @@ function Row(props: { row: ReturnType<typeof createData> }) {
             {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
           </IconButton>
         </TableCell>
-        <TableCell component="th" scope="row">
-          {row.name}
+        <TableCell component="th" scope="row" align="left">
+          {getClientName(row)}
         </TableCell>
-        <TableCell align="right">{row.calories}</TableCell>
-        <TableCell align="right">{row.fat}</TableCell>
-        <TableCell align="right">{row.carbs}</TableCell>
-        <TableCell align="right">{row.protein}</TableCell>
+        <TableCell align="left">
+          {generateAddressString(row.property_address)}
+        </TableCell>
+        <TableCell align="left">
+          {row.tags ? Object.keys(row.tags) : null}
+        </TableCell>
+        <TableCell align="left">{row.status}</TableCell>
       </TableRow>
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
@@ -84,7 +71,7 @@ function Row(props: { row: ReturnType<typeof createData> }) {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {row.history.map((historyRow) => (
+                  {/* {row.history.map((historyRow) => (
                     <TableRow key={historyRow.date}>
                       <TableCell component="th" scope="row">
                         {historyRow.date}
@@ -95,7 +82,7 @@ function Row(props: { row: ReturnType<typeof createData> }) {
                         {Math.round(historyRow.amount * row.price * 100) / 100}
                       </TableCell>
                     </TableRow>
-                  ))}
+                  ))} */}
                 </TableBody>
               </Table>
             </Box>
@@ -106,33 +93,27 @@ function Row(props: { row: ReturnType<typeof createData> }) {
   );
 }
 
-const rows = [
-  createData("Frozen yoghurt", 159, 6.0, 24, 4.0, 3.99),
-  createData("Ice cream sandwich", 237, 9.0, 37, 4.3, 4.99),
-  createData("Eclair", 262, 16.0, 24, 6.0, 3.79),
-  createData("Cupcake", 305, 3.7, 67, 4.3, 2.5),
-  createData("Gingerbread", 356, 16.0, 49, 3.9, 1.5),
-];
-
-const CollapsibleTable = () => {
+const CollapsibleTable = ({ clients }: { clients: ClientType[] }) => {
   return (
     <TableContainer component={Paper} className="clients-table">
       <Table aria-label="collapsible table">
         <TableHead>
           <TableRow>
             <TableCell />
-            <TableCell>Dessert (100g serving)</TableCell>
-            <TableCell align="right">Calories</TableCell>
-            <TableCell align="right">Fat&nbsp;(g)</TableCell>
-            <TableCell align="right">Carbs&nbsp;(g)</TableCell>
-            <TableCell align="right">Protein&nbsp;(g)</TableCell>
+            <TableCell align="left">Name</TableCell>
+            <TableCell align="left">Address</TableCell>
+            <TableCell align="left">Tags</TableCell>
+            <TableCell align="left">Status</TableCell>
+            {/* <TableCell align="left">Last Activity</TableCell> */}
           </TableRow>
         </TableHead>
-        <TableBody>
-          {rows.map((row) => (
-            <Row key={row.name} row={row} />
-          ))}
-        </TableBody>
+        {clients.length > 0 && (
+          <TableBody>
+            {clients.map((row) => (
+              <Row key={row.id} row={row} />
+            ))}
+          </TableBody>
+        )}
       </Table>
     </TableContainer>
   );

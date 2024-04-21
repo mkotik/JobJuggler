@@ -1,24 +1,23 @@
 import { Box } from "@mui/material";
 import { useEffect, useState } from "react";
 import { getClients } from "../../services/clientServices";
-import { Clients as ClientsType } from "../../../server/node_modules/@prisma/client/default.d";
+import { ClientType } from "./clientsTypes";
 import ClientTable from "./ClientTable";
 import "./clients.scss";
 
 const Clients = () => {
-  const [clients, setClients] = useState<ClientsType[]>([]);
+  const [clients, setClients] = useState<ClientType[]>([]);
   useEffect(() => {
     const loadClients = async () => {
-      const data: ClientsType[] = await getClients();
+      const data: ClientType[] = await getClients();
       setClients(data);
     };
-
     loadClients();
   }, []);
 
   return (
     <Box width="100%" padding="20px">
-      <ClientTable />
+      <ClientTable clients={clients} />
       {/* {clients.map((client) => {
           return (
             <div>

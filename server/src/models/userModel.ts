@@ -1,6 +1,7 @@
 import prisma from "../prisma/config";
 
 export const getUserByEmail = async (email: string) => {
+  console.log("/src/models/userModel in getUserByEmail");
   try {
     const user = await prisma.users.findUnique({
       where: {

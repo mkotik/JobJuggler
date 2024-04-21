@@ -1,10 +1,10 @@
 import express from "express";
-import { getAllClients } from "../controllers/clientControllers";
 import { getUserSession } from "../middleware/userValidations";
+import { getAllRequests } from "../controllers/requestControllers";
 
 const router = express.Router();
 
-// "/api/clients"
-router.get("/get-all-clients", getUserSession, getAllClients);
+// "/api/requests"
+router.get("/get-all-requests", getUserSession, getAllRequests);
 
 export default router;
