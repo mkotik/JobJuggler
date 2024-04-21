@@ -4,7 +4,7 @@ import config from "../config";
 export const login = async (loginData: { email: string; password: string }) => {
   try {
     const response = await axios.post(
-      `${config.loginUrl}/api/users/login`,
+      `${config.apiBaseUrl}/api/users/login`,
       loginData,
       {
         withCredentials: true,
@@ -20,7 +20,7 @@ export const login = async (loginData: { email: string; password: string }) => {
 export const isSessionValid = async () => {
   try {
     const response = await axios.get(
-      `${config.loginUrl}/api/users/is-session-valid`,
+      `${config.apiBaseUrl}/api/users/is-session-valid`,
       {
         withCredentials: true, // Add credentials option
       }

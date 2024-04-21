@@ -15,6 +15,6 @@ const router = express.Router();
 // "/api/users"
 router.post("/create-user", createUser);
 router.get("/is-session-valid", getUserSession, isSessionValid);
-router.post("/login", emailExists, validateSession, login);
+router.post("/login", emailExists, login);
 
 export default router;

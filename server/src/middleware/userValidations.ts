@@ -42,6 +42,7 @@ export const getUserSession = async (
   res: Response,
   next: NextFunction
 ) => {
+  console.log("In /middleware/userValidations.ts getUserSession");
   try {
     const { sessionId } = req.cookies;
     if (!sessionId) {
