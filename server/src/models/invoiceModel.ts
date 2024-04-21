@@ -1,4 +1,4 @@
-import prisma from "../prisma/config";
+import { prisma } from "../prisma/config";
 
 export const getInvoicesByUserId = async (userId: number) => {
   console.log("/src/models/invoiceModel in getInvoicesByUserId");

@@ -1,4 +1,4 @@
-import prisma from "../prisma/config";
+import { prisma, Prisma } from "../prisma/config";
 
 export const getClientsByUserId = async (userId: number) => {
   console.log("/src/models/clientModel in getClientsByUserId");
@@ -17,5 +17,16 @@ export const getClientsByUserId = async (userId: number) => {
   } catch (error) {
     console.error("Error fetching clients by user id:", error);
     throw error;
+  }
+};
+
+export const saveClient = async (userData: Prisma.ClientsCreateInput) => {
+  try {
+    const newClient = await prisma.clients.create({
+      data: userData,
+    });
+    return newClient;
+  } catch (err) {
+    console.log(err);
   }
 };

@@ -1,4 +1,4 @@
-import prisma from "../prisma/config";
+import { prisma } from "../prisma/config";
 
 export const getQuotesByUserId = async (userId: number) => {
   console.log("/src/models/quoteModel in getQuoteByUserId");

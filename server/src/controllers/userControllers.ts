@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 const bcrypt = require("bcryptjs");
 import { xDaysFromNow } from "../utils/dateUtils";
 import config from "../config/config";
-import prisma from "../prisma/config";
+import { prisma } from "../prisma/config";
 
 export const createUser = async (
   req: Request,

@@ -1,4 +1,4 @@
-import prisma from "../prisma/config";
+import { prisma } from "../prisma/config";
 
 export const getUserByEmail = async (email: string) => {
   console.log("/src/models/userModel in getUserByEmail");

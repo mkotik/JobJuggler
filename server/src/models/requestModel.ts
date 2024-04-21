@@ -1,4 +1,4 @@
-import prisma from "../prisma/config";
+import { prisma } from "../prisma/config";
 
 export const getRequestsByUserId = async (userId: number) => {
   console.log("/src/models/requestModel in getRequestsByUserId");

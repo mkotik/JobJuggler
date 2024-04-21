@@ -1,4 +1,4 @@
-import prisma from "../prisma/config";
+import { prisma } from "../prisma/config";
 
 export const getJobsByUserId = async (userId: number) => {
   console.log("/src/models/jobtModel in getJobsByUserId");
