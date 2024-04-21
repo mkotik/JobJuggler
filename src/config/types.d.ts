@@ -86,7 +86,7 @@ export type RequestType = {
   preferred_arrival_times?: string | null;
   on_site_assesment_required: boolean;
   assessment: Assessment;
-  client: Client;
+  client: ClientType;
   client_id: number;
   assessment_id: number;
   internal_notes: string;
@@ -117,7 +117,7 @@ export type QuoteType = {
   title: string;
   quote_number: string;
   opportunity_rating?: string | null;
-  client: Client;
+  client: ClientType;
   client_id: number;
   line_items: LineItem[];
   client_message?: string | null;
@@ -136,7 +136,7 @@ export type JobType = {
   emailed_to_client: boolean;
   texted_to_client: boolean;
   status: string;
-  client: Client;
+  client: ClientType;
   client_id: number;
   title: string;
   instructions?: string | null;
@@ -170,9 +170,9 @@ export type InvoiceType = {
   status: string;
   type: string;
   subject: string;
-  client: Client;
+  client: ClientType;
   client_id: number;
-  job?: Job | null;
+  job?: JobType | null;
   tax?: Tax | null;
   additional_line_items: LineItem[];
   client_message: string;

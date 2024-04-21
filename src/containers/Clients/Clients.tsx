@@ -18,13 +18,6 @@ const Clients = () => {
   return (
     <Box width="100%" padding="20px">
       <ClientTable clients={clients} />
-      {/* {clients.map((client) => {
-          return (
-            <div>
-              <p>hi</p>
-            </div>
-          );
-        })} */}
     </Box>
   );
 };

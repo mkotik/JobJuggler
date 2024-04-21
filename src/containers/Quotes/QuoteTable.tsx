@@ -12,7 +12,7 @@ import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
-import { ClientType, Address } from "../../config/types";
+import { ClientType, Address, QuoteType } from "../../config/types";
 
 const getClientName = (row: any) => {
   const { first_name, last_name } = row;
@@ -27,7 +27,7 @@ const generateAddressString = (address: Address | undefined) => {
   return outputStr;
 };
 
-function Row(props: { row: ClientType }) {
+function Row(props: { row: QuoteType }) {
   const { row } = props;
   const [open, setOpen] = React.useState(false);
 
@@ -44,17 +44,17 @@ function Row(props: { row: ClientType }) {
           </IconButton>
         </TableCell>
         <TableCell component="th" scope="row" align="left">
-          {getClientName(row)}
+          {getClientName(row.client)}
         </TableCell>
+        <TableCell align="left">{row.quote_number}</TableCell>
         <TableCell align="left">
-          {row.property_address
-            ? generateAddressString(row.property_address)
+          {row.client.property_address
+            ? generateAddressString(row.client.property_address)
             : ""}
         </TableCell>
-        <TableCell align="left">
-          {row.tags ? Object.keys(row.tags) : null}
-        </TableCell>
+        <TableCell align="left">{" need to add"}</TableCell>
         <TableCell align="left">{row.status}</TableCell>
+        <TableCell align="left">need to add</TableCell>
       </TableRow>
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
@@ -95,23 +95,25 @@ function Row(props: { row: ClientType }) {
   );
 }
 
-const CollapsibleTable = ({ clients }: { clients: ClientType[] }) => {
+const CollapsibleTable = ({ quotes }: { quotes: QuoteType[] }) => {
   return (
-    <TableContainer component={Paper} className="clients-table">
+    <TableContainer component={Paper} className="quotes-table">
       <Table aria-label="collapsible table">
         <TableHead>
           <TableRow>
             <TableCell />
-            <TableCell align="left">Name</TableCell>
-            <TableCell align="left">Address</TableCell>
-            <TableCell align="left">Tags</TableCell>
+            <TableCell align="left">Client</TableCell>
+            <TableCell align="left">Quote Number</TableCell>
+            <TableCell align="left">Property</TableCell>
+            <TableCell align="left">Created</TableCell>
             <TableCell align="left">Status</TableCell>
+            <TableCell align="left">Total</TableCell>
             {/* <TableCell align="left">Last Activity</TableCell> */}
           </TableRow>
         </TableHead>
-        {clients.length > 0 && (
+        {quotes.length > 0 && (
           <TableBody>
-            {clients.map((row) => (
+            {quotes.map((row) => (
               <Row key={row.id} row={row} />
             ))}
           </TableBody>

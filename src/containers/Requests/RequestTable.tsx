@@ -12,7 +12,7 @@ import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
-import { ClientType, Address } from "../../config/types";
+import { ClientType, Address, RequestType } from "../../config/types";
 
 const getClientName = (row: any) => {
   const { first_name, last_name } = row;
@@ -27,7 +27,7 @@ const generateAddressString = (address: Address) => {
   return outputStr;
 };
 
-function Row(props: { row: ClientType }) {
+function Row(props: { row: RequestType }) {
   const { row } = props;
   const [open, setOpen] = React.useState(false);
 
@@ -44,17 +44,13 @@ function Row(props: { row: ClientType }) {
           </IconButton>
         </TableCell>
         <TableCell component="th" scope="row" align="left">
-          {getClientName(row)}
+          {getClientName(row.client)}
         </TableCell>
+        <TableCell align="left">{row.title}</TableCell>
+        <TableCell align="left">{row.client.email}</TableCell>
         <TableCell align="left">
-          {row.property_address
-            ? generateAddressString(row.property_address)
-            : ""}
+          {JSON.stringify(row.assessment_date)}
         </TableCell>
-        <TableCell align="left">
-          {row.tags ? Object.keys(row.tags) : null}
-        </TableCell>
-        <TableCell align="left">{row.status}</TableCell>
       </TableRow>
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
@@ -95,23 +91,23 @@ function Row(props: { row: ClientType }) {
   );
 }
 
-const CollapsibleTable = ({ clients }: { clients: ClientType[] }) => {
+const CollapsibleTable = ({ requests }: { requests: RequestType[] }) => {
   return (
-    <TableContainer component={Paper} className="clients-table">
+    <TableContainer component={Paper} className="requests-table">
       <Table aria-label="collapsible table">
         <TableHead>
           <TableRow>
             <TableCell />
-            <TableCell align="left">Name</TableCell>
-            <TableCell align="left">Address</TableCell>
-            <TableCell align="left">Tags</TableCell>
-            <TableCell align="left">Status</TableCell>
+            <TableCell align="left">Client</TableCell>
+            <TableCell align="left">Title</TableCell>
+            <TableCell align="left">Contact</TableCell>
+            <TableCell align="left">Requested</TableCell>
             {/* <TableCell align="left">Last Activity</TableCell> */}
           </TableRow>
         </TableHead>
-        {clients.length > 0 && (
+        {requests.length > 0 && (
           <TableBody>
-            {clients.map((row) => (
+            {requests.map((row) => (
               <Row key={row.id} row={row} />
             ))}
           </TableBody>

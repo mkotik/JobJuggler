@@ -2,6 +2,7 @@ import { Box } from "@mui/material";
 import { useState, useEffect } from "react";
 import { RequestType } from "../../config/types";
 import { getRequests } from "../../services/requestServices";
+import RequestTable from "./RequestTable";
 
 const Requests = () => {
   const [requests, setRequests] = useState<RequestType[]>([]);
@@ -14,7 +15,7 @@ const Requests = () => {
   }, []);
   return (
     <Box>
-      <p>Requests</p>
+      <RequestTable requests={requests} />
     </Box>
   );
 };

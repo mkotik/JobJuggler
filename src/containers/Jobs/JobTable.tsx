@@ -12,7 +12,7 @@ import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
-import { ClientType, Address } from "../../config/types";
+import { Address, JobType } from "../../config/types";
 
 const getClientName = (row: any) => {
   const { first_name, last_name } = row;
@@ -27,7 +27,7 @@ const generateAddressString = (address: Address | undefined) => {
   return outputStr;
 };
 
-function Row(props: { row: ClientType }) {
+function Row(props: { row: JobType }) {
   const { row } = props;
   const [open, setOpen] = React.useState(false);
 
@@ -44,17 +44,17 @@ function Row(props: { row: ClientType }) {
           </IconButton>
         </TableCell>
         <TableCell component="th" scope="row" align="left">
-          {getClientName(row)}
+          {getClientName(row.client)}
         </TableCell>
+        <TableCell align="left">{row.number}</TableCell>
         <TableCell align="left">
-          {row.property_address
-            ? generateAddressString(row.property_address)
+          {row.client.property_address
+            ? generateAddressString(row.client.property_address)
             : ""}
         </TableCell>
-        <TableCell align="left">
-          {row.tags ? Object.keys(row.tags) : null}
-        </TableCell>
+        <TableCell align="left">{JSON.stringify(row.start_date)}</TableCell>
         <TableCell align="left">{row.status}</TableCell>
+        <TableCell align="left">$1000.00</TableCell>
       </TableRow>
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
@@ -95,23 +95,25 @@ function Row(props: { row: ClientType }) {
   );
 }
 
-const CollapsibleTable = ({ clients }: { clients: ClientType[] }) => {
+const CollapsibleTable = ({ jobs }: { jobs: JobType[] }) => {
   return (
-    <TableContainer component={Paper} className="clients-table">
+    <TableContainer component={Paper} className="jobs-table">
       <Table aria-label="collapsible table">
         <TableHead>
           <TableRow>
             <TableCell />
-            <TableCell align="left">Name</TableCell>
-            <TableCell align="left">Address</TableCell>
-            <TableCell align="left">Tags</TableCell>
+            <TableCell align="left">Client</TableCell>
+            <TableCell align="left">Job Number</TableCell>
+            <TableCell align="left">Property</TableCell>
+            <TableCell align="left">Schedule</TableCell>
             <TableCell align="left">Status</TableCell>
+            <TableCell align="left">Total</TableCell>
             {/* <TableCell align="left">Last Activity</TableCell> */}
           </TableRow>
         </TableHead>
-        {clients.length > 0 && (
+        {jobs.length > 0 && (
           <TableBody>
-            {clients.map((row) => (
+            {jobs.map((row) => (
               <Row key={row.id} row={row} />
             ))}
           </TableBody>

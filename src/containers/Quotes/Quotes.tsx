@@ -2,6 +2,8 @@ import { Box } from "@mui/material";
 import { useState, useEffect } from "react";
 import { QuoteType } from "../../config/types";
 import { getQuotes } from "../../services/quoteServices";
+import QuotesTable from "./QuoteTable";
+import "./quotes.scss";
 
 const Quotes = () => {
   const [quotes, setQuotes] = useState<QuoteType[]>([]);
@@ -13,8 +15,8 @@ const Quotes = () => {
     loadQuotes();
   }, []);
   return (
-    <Box>
-      <p>Quotes</p>
+    <Box width="100%" padding="20px">
+      <QuotesTable quotes={quotes} />
     </Box>
   );
 };
