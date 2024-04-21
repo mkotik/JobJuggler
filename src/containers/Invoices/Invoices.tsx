@@ -1,13 +1,13 @@
 import { Box } from "@mui/material";
 import { useEffect, useState } from "react";
 import { getInvoices } from "../../services/invoiceServices";
-import { ClientType } from "../Clients/clientsTypes";
+import { InvoiceType } from "../../config/types";
 
 const Invoices = () => {
-  const [invoices, setInvoices] = useState<ClientType[]>([]);
+  const [invoices, setInvoices] = useState<InvoiceType[]>([]);
   useEffect(() => {
     const loadInvoices = async () => {
-      const data: ClientType[] = await getInvoices();
+      const data: InvoiceType[] = await getInvoices();
       setInvoices(data);
     };
     loadInvoices();

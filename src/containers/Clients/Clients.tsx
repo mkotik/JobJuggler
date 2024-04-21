@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
 import { useEffect, useState } from "react";
 import { getClients } from "../../services/clientServices";
-import { ClientType } from "./clientsTypes";
+import { ClientType } from "../../config/types";
 import ClientTable from "./ClientTable";
 import "./clients.scss";
 

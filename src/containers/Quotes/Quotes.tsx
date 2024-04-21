@@ -1,13 +1,13 @@
 import { Box } from "@mui/material";
 import { useState, useEffect } from "react";
-import { ClientType } from "../Clients/clientsTypes";
+import { QuoteType } from "../../config/types";
 import { getQuotes } from "../../services/quoteServices";
 
 const Quotes = () => {
-  const [quotes, setQuotes] = useState<ClientType[]>([]);
+  const [quotes, setQuotes] = useState<QuoteType[]>([]);
   useEffect(() => {
     const loadQuotes = async () => {
-      const data: ClientType[] = await getQuotes();
+      const data: QuoteType[] = await getQuotes();
       setQuotes(data);
     };
     loadQuotes();

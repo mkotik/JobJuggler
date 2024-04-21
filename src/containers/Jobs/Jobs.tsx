@@ -1,12 +1,12 @@
 import { Box } from "@mui/material";
 import { useEffect, useState } from "react";
-import { ClientType } from "../Clients/clientsTypes";
+import { JobType } from "../../config/types";
 import { getJobs } from "../../services/jobServices";
 const Jobs = () => {
-  const [jobs, setJobs] = useState<ClientType[]>([]);
+  const [jobs, setJobs] = useState<JobType[]>([]);
   useEffect(() => {
     const loadJobs = async () => {
-      const data: ClientType[] = await getJobs();
+      const data: JobType[] = await getJobs();
       setJobs(data);
     };
     loadJobs();

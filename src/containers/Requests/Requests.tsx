@@ -1,13 +1,13 @@
 import { Box } from "@mui/material";
 import { useState, useEffect } from "react";
-import { ClientType } from "../Clients/clientsTypes";
+import { RequestType } from "../../config/types";
 import { getRequests } from "../../services/requestServices";
 
 const Requests = () => {
-  const [requests, setRequests] = useState<ClientType[]>([]);
+  const [requests, setRequests] = useState<RequestType[]>([]);
   useEffect(() => {
     const loadRequests = async () => {
-      const data: ClientType[] = await getRequests();
+      const data: RequestType[] = await getRequests();
       setRequests(data);
     };
     loadRequests();
