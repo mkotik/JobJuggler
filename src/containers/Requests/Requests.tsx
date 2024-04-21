@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { RequestType } from "../../config/types";
 import { getRequests } from "../../services/requestServices";
 import RequestTable from "./RequestTable";
+import "./requests.scss";
 
 const Requests = () => {
   const [requests, setRequests] = useState<RequestType[]>([]);
@@ -14,7 +15,7 @@ const Requests = () => {
     loadRequests();
   }, []);
   return (
-    <Box>
+    <Box padding="20px">
       <RequestTable requests={requests} />
     </Box>
   );
