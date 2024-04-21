@@ -73,10 +73,10 @@ model Clients {
   requests                   Requests[] @relation("client")
   quotes                     Quotes[] @relation("client")
   jobs                       Jobs[] @relation("client")
-  reated_date                DateTime  @default(now())
+  created_date                DateTime  @default(now())
   status                      String?   // Optional field
-  belongs_to                  Users? @relation(name: "client_belongs_to_user", fields: [belongs_to_id], references: [id])
-  belongs_to_id               Int?
+  belongs_to                  Users @relation(name: "client_belongs_to_user", fields: [belongs_to_id], references: [id])
+  belongs_to_id               Int
 }
 
 model Assessments {

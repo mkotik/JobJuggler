@@ -4,13 +4,17 @@ import {
   login,
   isSessionValid,
 } from "../controllers/userControllers";
-import { emailExists, validateSession } from "../middleware/userValidations";
+import {
+  emailExists,
+  validateSession,
+  getUserSession,
+} from "../middleware/userValidations";
 
 const router = express.Router();
 
 // "/api/users"
 router.post("/create-user", createUser);
-router.get("/is-session-valid", isSessionValid);
+router.get("/is-session-valid", getUserSession, isSessionValid);
 router.post("/login", emailExists, validateSession, login);
 
 export default router;

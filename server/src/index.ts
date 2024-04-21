@@ -1,6 +1,7 @@
 import express from "express";
 const session = require("express-session");
 import userRoutes from "./routes/userRoutes";
+import clientRoutes from "./routes/clientRoutes";
 import dotenv from "dotenv";
 const cors = require("cors");
 import cookieParser from "cookie-parser";
@@ -39,6 +40,7 @@ app.use(express.json());
 const port = process.env.PORT;
 
 app.use("/api/users", userRoutes);
+app.use("/api/clients", clientRoutes);
 
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
