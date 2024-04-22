@@ -64,7 +64,7 @@ model Clients {
   use_company_name_as_primary Boolean   @default(false)
   mobile_phone_number         String?   // Optional field
   work_phone_number           String?   // Optional field
-  email                       String?   // Optional field
+  email                       String   
   quote_follow_up             Boolean   @default(true)
   job_follow_up               Boolean   @default(true)
   invoice_follow_up           Boolean   @default(true)

@@ -1,3 +1,55 @@
 .clients-table {
   box-shadow: none !important;
 }
+
+.client-details-container {
+  max-width: 650px;
+  margin: auto;
+}
+
+.client-details-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+
+  .client-details-icon {
+    margin-right: 8px;
+    color: rgba(0, 0, 0, 0.6);
+  }
+}
+
+.client-details-fields {
+  display: flex;
+  gap: 16px;
+}
+
+.client-details-select,
+.client-details-textfield {
+  .MuiOutlinedInput-root {
+    // Style adjustments for Material-UI TextField with outline variant
+  }
+}
+
+.client-details-company {
+  .MuiTextField-root {
+    margin-top: 16px; // Assuming 'normal' margin is 16px in MUI
+  }
+}
+
+.client-details-checkbox {
+  .MuiFormControlLabel-root {
+    margin-top: 16px;
+  }
+}
+.MuiInputBase-root {
+  height: 40px;
+}
+
+.MuiInputLabel-root {
+  transform: translate(15px, 10px) !important;
+}
+
+.city-state-wrap {
+  display: flex;
+  gap: 15px !important;
+}

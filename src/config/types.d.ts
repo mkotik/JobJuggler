@@ -61,6 +61,28 @@ export type ClientType = {
   belongs_to_id: number;
 };
 
+export type ClientsCreateInput = {
+  title: string;
+  tags?: NullableJsonNullValueInput | InputJsonValue;
+  first_name: string;
+  last_name: string;
+  company_name?: string | null;
+  use_company_name_as_primary?: boolean;
+  mobile_phone_number?: string | null;
+  work_phone_number?: string | null;
+  email: string;
+  quote_follow_up?: boolean;
+  job_follow_up?: boolean;
+  invoice_follow_up?: boolean;
+  upcoming_visit_reminder?: boolean;
+  referred_by?: string | null;
+  billing_address_same_as_property?: boolean;
+  created_date?: Date | string;
+  status?: string | null;
+  property_address?: Address;
+  billing_address?: Address;
+};
+
 export type Assessment = {
   id: number;
   instructions?: string | null;
