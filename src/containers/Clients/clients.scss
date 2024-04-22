@@ -20,12 +20,13 @@
 
 .client-details-fields {
   display: flex;
-  gap: 16px;
+  gap: 15px;
 }
 
 .client-details-select,
 .client-details-textfield {
   .MuiOutlinedInput-root {
+    height: 40px !important;
     // Style adjustments for Material-UI TextField with outline variant
   }
 }
@@ -52,4 +53,21 @@
 .city-state-wrap {
   display: flex;
   gap: 15px !important;
+}
+
+.client-details-company {
+  margin-bottom: 0px !important;
+}
+
+.notifications-accordion {
+  margin-top: 0px !important;
+}
+
+legend {
+  display: none !important;
+}
+
+fieldset {
+  height: 40px !important;
+  top: 0px !important;
 }

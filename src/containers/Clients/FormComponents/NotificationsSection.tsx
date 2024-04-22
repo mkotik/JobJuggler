@@ -14,7 +14,7 @@ import {
 
 const NotificationsSection = () => {
   return (
-    <Accordion defaultExpanded sx={{ boxShadow: "none" }}>
+    <Accordion sx={{ boxShadow: "none" }} className="notifications-accordion">
       <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
         aria-controls="panel1a-content"

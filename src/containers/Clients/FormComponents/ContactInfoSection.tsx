@@ -14,8 +14,8 @@ import {
 
 const ContactInfoSection = () => {
   return (
-    <Box marginTop="9px">
-      <Box display="flex" width="100%">
+    <Box marginTop="17px">
+      <Box display="flex" width="100%" gap="15px">
         <Box flex="1">
           {/* <InputLabel id="demo-simple-select-label">Age</InputLabel> */}
           <Select
@@ -36,11 +36,9 @@ const ContactInfoSection = () => {
           control={<Switch defaultChecked />}
           label="Receives text messages"
         />
-        <Button sx={{ width: "200px", marginY: "20px" }}>
-          Add Phone Number
-        </Button>
+        <Button sx={{ width: "161px" }}>Add Phone Number</Button>
       </Box>
-      <Box display="flex" width="100%">
+      <Box display="flex" width="100%" gap="15px">
         <Box flex="1">
           {/* <InputLabel id="demo-simple-select-label">Age</InputLabel> */}
           <Select

@@ -5,19 +5,18 @@ import {
   MenuItem,
   FormControlLabel,
   Checkbox,
+  Select,
 } from "@mui/material";
 
 const NameSection = () => {
   return (
     <FormGroup>
       <div className="client-details-fields">
-        <TextField
-          select
-          label="No title"
+        <Select
+          label="test"
           defaultValue=""
           variant="outlined"
           fullWidth
-          size="small"
           className="client-details-select"
         >
           <MenuItem value="">No title</MenuItem>
@@ -25,7 +24,7 @@ const NameSection = () => {
           <MenuItem value="ms">Ms.</MenuItem>
           <MenuItem value="mrs">Mrs.</MenuItem>
           <MenuItem value="dr">Dr.</MenuItem>
-        </TextField>
+        </Select>
         <TextField
           label="First name"
           variant="outlined"

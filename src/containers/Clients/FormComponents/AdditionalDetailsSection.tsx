@@ -15,7 +15,7 @@ import {
 
 const AdditionalDetailsSection = () => {
   return (
-    <Accordion defaultExpanded sx={{ boxShadow: "none" }}>
+    <Accordion sx={{ boxShadow: "none" }}>
       <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
         aria-controls="panel1a-content"

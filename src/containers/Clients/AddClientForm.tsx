@@ -17,6 +17,7 @@ import NameSection from "./FormComponents/NameSection";
 import AddressSection from "./FormComponents/AddressSection";
 import ContactInfoSection from "./FormComponents/ContactInfoSection";
 import NotificationSection from "./FormComponents/NotificationsSection";
+import HouseOutlinedIcon from "@mui/icons-material/HouseOutlined";
 
 const AddClientForm = () => {
   const [clientDetails, setClientDetails] = useState<ClientsCreateInput>({
@@ -29,7 +30,7 @@ const AddClientForm = () => {
   });
 
   return (
-    <Container maxWidth="xl">
+    <Container maxWidth="xl" sx={{ marginTop: "20px" }}>
       <Box display="flex" gap="10px">
         <Box sx={{ flex: 1 }} display="flex" flexDirection="column" gap="10px">
           <div className="client-details-header">
@@ -46,7 +47,7 @@ const AddClientForm = () => {
         <Box sx={{ flex: 1 }} display="flex" flexDirection="column" gap="10px">
           <div className="client-details-header">
             <div className="client-details-icon">
-              <AccountCircleIcon fontSize="large" />
+              <HouseOutlinedIcon fontSize="large" />
             </div>
             <h2>Property details</h2>
           </div>
@@ -58,7 +59,7 @@ const AddClientForm = () => {
           {!clientDetails.billing_address_same_as_property && (
             <AddressSection />
           )}
-          <Button sx={{ width: "200px" }} variant="contained">
+          <Button sx={{ width: "200px", height: "40px" }} variant="contained">
             Submit
           </Button>
         </Box>

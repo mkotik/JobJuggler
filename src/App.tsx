@@ -2,6 +2,7 @@ import { Box } from "@mui/material";
 import { useCheckSession } from "./utils/customHooks";
 import { ReactNode } from "react";
 import Navbar from "./components/NavBar";
+import "./App.css";
 const App = ({ children }: { children: ReactNode }) => {
   useCheckSession();
   return (
