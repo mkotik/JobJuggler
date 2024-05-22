@@ -67,7 +67,11 @@ legend {
   display: none !important;
 }
 
-fieldset {
+fieldset,
+input {
   height: 40px !important;
-  top: 0px !important;
+  top: -2px !important;
+}
+input {
+  padding: 0px 14px 2px 14px !important;
 }

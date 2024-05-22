@@ -12,7 +12,7 @@ import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
-import { ClientType, Address, QuoteType } from "../../config/types";
+import { Address, QuoteType } from "../../config/types";
 
 const getClientName = (row: any) => {
   const { first_name, last_name } = row;
@@ -22,7 +22,7 @@ const getClientName = (row: any) => {
 
 const generateAddressString = (address: Address | undefined) => {
   if (!address) return;
-  const { city, country, state, street1, street2, zip_code } = address;
+  const { city, state, street1, zip_code } = address;
   const outputStr = street1 + ", " + city + ", " + state + "" + zip_code;
   return outputStr;
 };

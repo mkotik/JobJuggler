@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   Container,
@@ -6,7 +6,6 @@ import {
   Button,
   Typography,
   IconButton,
-  Grid,
   Paper,
   Table,
   TableBody,
@@ -16,7 +15,7 @@ import {
   TableRow,
   Box,
 } from "@mui/material";
-import { Add, Delete, AddCircleOutline, Create } from "@mui/icons-material";
+import { Add, Delete } from "@mui/icons-material";
 
 function AddQuoteForm() {
   const navigate = useNavigate();
@@ -26,7 +25,6 @@ function AddQuoteForm() {
   const [lineItems, setLineItems] = useState([
     { name: "", description: "", qty: 1, unitPrice: 0 },
   ]);
-  const [clientMessage, setClientMessage] = useState("");
   const [noteDetails, setNoteDetails] = useState("");
 
   // Dummy function to add line item
@@ -38,11 +36,6 @@ function AddQuoteForm() {
   };
 
   // Dummy function to remove line item
-  const removeLineItem = (index: any) => {
-    const newLineItems = [...lineItems];
-    newLineItems.splice(index, 1);
-    setLineItems(newLineItems);
-  };
 
   // Back to quotes
   const backToQuotes = () => {

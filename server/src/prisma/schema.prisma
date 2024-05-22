@@ -63,8 +63,10 @@ model Clients {
   company_name                String?   // Optional field
   use_company_name_as_primary Boolean   @default(false)
   mobile_phone_number         String?   // Optional field
+  phone_type                  String?   // optional
   work_phone_number           String?   // Optional field
-  email                       String   
+  email                       String?   
+  email_type                  String?
   quote_follow_up             Boolean   @default(true)
   job_follow_up               Boolean   @default(true)
   invoice_follow_up           Boolean   @default(true)
@@ -83,6 +85,7 @@ model Clients {
   status                      String?   // Optional field
   belongs_to                  Users @relation(name: "client_belongs_to_user", fields: [belongs_to_id], references: [id])
   belongs_to_id               Int
+  receives_texts              Boolean? @default(true)
 }
 
 model Assessments {

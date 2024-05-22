@@ -3,13 +3,10 @@ import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import Button from "@mui/material/Button";
-import { useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import { Link as RouterLink } from "react-router-dom";
 
 const AddJobForm = () => {
-  const theme = useTheme();
-
   const [jobDetails, setJobDetails] = React.useState({
     clientName: "",
     needs: "",

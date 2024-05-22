@@ -13,5 +13,5 @@ export const useCheckSession = () => {
       }
     };
     checkSession();
-  }, []);
+  }, [navigate]);
 };

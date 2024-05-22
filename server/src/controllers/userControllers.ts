@@ -30,7 +30,7 @@ export const login = async (req: Request, res: Response) => {
   // const salt = await bcrypt.genSalt(10);
   // const hashedPassword = await bcrypt.hash(password, salt);
 
-  const isPasswordValid = await bcrypt.compare(password, storedPassword);
+  const isPasswordValid = await bcrypt.compare(password, storedPassword); // true or false
   if (isPasswordValid) {
     //@ts-ignore
     req.session.authenticated = true;

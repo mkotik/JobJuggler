@@ -12,6 +12,9 @@
     "migrate_2": "npx prisma migrate dev",
     "rollback": "npx prisma migrate reset"
   },
+  "prisma": {
+    "schema": "./src/prisma/schema.prisma"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",

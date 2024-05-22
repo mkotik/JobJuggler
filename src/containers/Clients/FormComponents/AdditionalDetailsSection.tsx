@@ -4,16 +4,23 @@ import {
   AccordionSummary,
   AccordionDetails,
   Typography,
-  Switch,
-  Link,
   FormGroup,
-  FormControlLabel,
-  Grid,
   Box,
   TextField,
 } from "@mui/material";
+import { ClientsCreateInput } from "../../../config/types";
 
-const AdditionalDetailsSection = () => {
+const AdditionalDetailsSection = ({
+  clientDetails,
+  onSelectChange,
+  onTextInputChange,
+  onCheckbox,
+}: {
+  clientDetails: ClientsCreateInput;
+  onSelectChange: any;
+  onTextInputChange: any;
+  onCheckbox: any;
+}) => {
   return (
     <Accordion sx={{ boxShadow: "none" }}>
       <AccordionSummary
@@ -30,7 +37,13 @@ const AdditionalDetailsSection = () => {
               <Typography variant="subtitle1">Referred By</Typography>
             </Box>
             <Box flex="3">
-              <TextField sx={{ width: "100%" }} label="Referred By" />
+              <TextField
+                sx={{ width: "100%" }}
+                placeholder="Referred By"
+                onChange={onTextInputChange}
+                value={clientDetails.referred_by}
+                name="referred_by"
+              />
             </Box>
           </Box>
         </FormGroup>

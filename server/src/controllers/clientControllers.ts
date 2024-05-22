@@ -1,6 +1,9 @@
 import { Request, Response } from "express";
-import { Prisma } from "@prisma/client";
-import { getClientsByUserId, saveClient } from "../models/clientModel";
+import { ClientsCreateInput } from "src/config/types";
+import {
+  getClientsByUserId,
+  saveClientWithAddresses,
+} from "../models/clientModel";
 export const getAllClients = async (req: Request, res: Response) => {
   const userData = res.locals?.session?.userdata;
   if (!userData) {
@@ -15,11 +18,23 @@ export const getAllClients = async (req: Request, res: Response) => {
 
 export const createClient = async (req: Request, res: Response) => {
   try {
-    const userData: Prisma.ClientsCreateInput = req.body;
-    const newUserId = await saveClient(userData);
-    res.status(201).json({ message: "user successfully created" });
+    //@ts-ignore
+    if (!req.session.userdata || !req.session.userdata.id) {
+      return res.status(500).json({ message: "User ID not found in session" });
+    }
+
+    //@ts-ignore
+    const belongs_to_id = req.session.userdata.id;
+    const clientDetails: ClientsCreateInput = req.body.clientDetails;
+    const response = await saveClientWithAddresses(
+      clientDetails,
+      belongs_to_id
+    );
+    console.log(response);
+
+    //save property address
   } catch (err) {
-    console.log(err);
-    res.status(500).json({ message: "server error" });
+    console.error(err);
+    return res.status(500).json({ message: "Server error" });
   }
 };

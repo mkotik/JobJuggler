@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   Container,
@@ -11,7 +11,6 @@ import {
   FormControl,
   InputLabel,
   Select,
-  MenuItem,
   Typography,
   Grid,
 } from "@mui/material";
@@ -27,8 +26,6 @@ function AddRequestForm() {
   const [instructions, setInstructions] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
-  const [startTime, setStartTime] = useState("");
-  const [endTime, setEndTime] = useState("");
   const [noteDetails, setNoteDetails] = useState("");
 
   // Dummy values for select inputs

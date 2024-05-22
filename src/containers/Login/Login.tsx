@@ -19,7 +19,7 @@ const Login = () => {
   return (
     <Box className="login-form">
       <TextField
-        label="Email"
+        placeholder="Email"
         variant="outlined"
         className="input"
         value={email}
@@ -27,7 +27,7 @@ const Login = () => {
       />
       <TextField
         className="input"
-        label="Password"
+        placeholder="Password"
         variant="outlined"
         type="password"
         value={password}

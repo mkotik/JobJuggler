@@ -22,7 +22,7 @@ const getClientName = (row: any) => {
 
 const generateAddressString = (address: Address | undefined) => {
   if (!address) return;
-  const { city, country, state, street1, street2, zip_code } = address;
+  const { city, state, street1, zip_code } = address;
   const outputStr = street1 + ", " + city + ", " + state + "" + zip_code;
   return outputStr;
 };

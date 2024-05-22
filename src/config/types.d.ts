@@ -17,6 +17,15 @@ export type Address = {
   country: string;
 };
 
+export type AddressCreateInput = {
+  street1: string;
+  street2?: string | null;
+  city: string;
+  state: string;
+  zip_code: string;
+  country: string;
+};
+
 export type UserType = {
   id: number;
   email?: string | null;
@@ -79,8 +88,11 @@ export type ClientsCreateInput = {
   billing_address_same_as_property?: boolean;
   created_date?: Date | string;
   status?: string | null;
-  property_address?: Address;
-  billing_address?: Address;
+  property_address?: AddressCreateInput;
+  billing_address?: AddressCreateInput;
+  phone_type?: string;
+  email_type?: string;
+  receives_texts?: boolean;
 };
 
 export type Assessment = {

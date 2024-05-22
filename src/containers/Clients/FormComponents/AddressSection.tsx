@@ -1,10 +1,49 @@
-import { Box, TextField, InputLabel, Select, MenuItem } from "@mui/material";
+import {
+  Box,
+  TextField,
+  Select,
+  MenuItem,
+  SelectChangeEvent,
+} from "@mui/material";
+import { AddressCreateInput, ClientsCreateInput } from "../../../config/types";
 
-const AddressSection = () => {
+const AddressSection = ({
+  setClientDetails,
+  clientDetails,
+  addressType,
+}: {
+  setClientDetails: any;
+  clientDetails: ClientsCreateInput;
+  addressType: "property" | "billing";
+}) => {
+  const onTextInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setClientDetails({
+      ...clientDetails,
+      [`${addressType}_address`]: {
+        ...clientDetails[`${addressType}_address`],
+        [name]: value,
+      },
+    });
+  };
+
+  const onSelectChange = (e: SelectChangeEvent<string>) => {
+    const { name, value } = e.target;
+    setClientDetails({
+      ...clientDetails,
+      [`${addressType}_address`]: {
+        ...clientDetails[`${addressType}_address`],
+        [name]: value,
+      },
+    });
+  };
   return (
     <Box display="flex" flexDirection="column" gap="15px">
       <TextField
-        label="Street 1"
+        placeholder="Street 1"
+        onChange={onTextInputChange}
+        name="street1"
+        value={clientDetails[`${addressType}_address`]?.street1}
         sx={{
           width: "100%",
           input: {
@@ -14,7 +53,10 @@ const AddressSection = () => {
         }}
       />
       <TextField
-        label="Street 2"
+        placeholder="Street 2"
+        onChange={onTextInputChange}
+        value={clientDetails[`${addressType}_address`]?.street2}
+        name="street2"
         sx={{
           width: "100%",
           input: {
@@ -25,7 +67,10 @@ const AddressSection = () => {
       />
       <Box display="flex" gap="15px">
         <TextField
-          label="City"
+          placeholder="City"
+          name="city"
+          onChange={onTextInputChange}
+          value={clientDetails[`${addressType}_address`]?.city}
           sx={{
             width: "100%",
             input: {
@@ -35,7 +80,10 @@ const AddressSection = () => {
           }}
         />
         <TextField
-          label="State"
+          placeholder="State"
+          name="state"
+          onChange={onTextInputChange}
+          value={clientDetails[`${addressType}_address`]?.state}
           sx={{
             width: "100%",
             input: {
@@ -47,7 +95,10 @@ const AddressSection = () => {
       </Box>
       <Box display="flex" flexDirection="row" gap="15px">
         <TextField
-          label="Zip Code"
+          name="zip_code"
+          placeholder="Zip Code"
+          onChange={onTextInputChange}
+          value={clientDetails[`${addressType}_address`]?.zip_code}
           sx={{
             width: "100%",
             flex: "1",
@@ -60,6 +111,7 @@ const AddressSection = () => {
         />
         <Box flex="1">
           <Select
+            onChange={onSelectChange}
             sx={{
               width: "100%",
               input: {
@@ -67,11 +119,10 @@ const AddressSection = () => {
                 padding: "0 14px", // Adjust padding as needed to align text properly
               },
             }}
+            name="country"
             id="country-select"
-            // value={country}
+            value={clientDetails[`${addressType}_address`]?.country}
             placeholder="Country"
-            label="Country"
-            // onChange={handleChange}
           >
             <MenuItem value="US">United States</MenuItem>
             <MenuItem value="CA">Canada</MenuItem>
